@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0d0e0f">
+<meta name="description" content="Editor fotográfico manual de procesamiento local.">
+<title>Lumay</title>
+<link rel="icon" href="./assets/mark.svg" type="image/svg+xml">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body class="at-home">
+<main id="welcome" class="home" aria-labelledby="welcome-title" aria-describedby="home-feedback">
+  <header class="home-header">
+    <span class="brand-lockup"><img src="./assets/mark.svg" alt="" width="42" height="42"><span class="wordmark">Lumay</span></span>
+    <div class="home-header-actions"><button id="home-settings" data-icon="palette" aria-haspopup="dialog">Temas</button>
+    <button id="home-help" class="round" data-icon="help" aria-label="Ayuda y atajos" title="Ayuda y atajos"></button></div>
+  </header>
+  <div class="home-board">
+    <div class="home-intro">
+      <h1 id="welcome-title" tabindex="-1">Abre una foto.<br>Hazla tuya.</h1>
+
+      <div class="home-actions">
+        <button id="welcome-open" class="primary" data-icon="plus">Abrir foto</button>
+        <button id="resume" data-icon="arrow" hidden>Continuar edición</button>
+      </div>
+      <span class="home-drop-hint">O arrastra una imagen aquí.</span>
+    </div>
+    <figure class="home-sample">
+      <img id="sample-image" src="./assets/sample.jpg" alt="Un lago turquesa rodeado de montañas" width="1536" height="1024">
+      <figcaption>
+        <span>Foto de muestra</span>
+        <button id="open-sample" data-icon="arrow"><span>Probar edición</span></button>
+      </figcaption>
+    </figure>
+    <p id="home-drop" hidden>Suelta la imagen para abrirla</p>
+  </div>
+  <p id="home-feedback" role="status"></p>
+</main>
+<header id="editor-header" class="top glass" hidden>
+  <div class="brand"><button id="back-home" class="round" data-icon="back" aria-label="Volver al inicio" title="Volver al inicio"></button><span class="brand-lockup"><img src="./assets/mark.svg" alt="" width="28" height="28"><strong class="wordmark">Lumay</strong></span><button id="open" data-icon="plus">Abrir</button></div>
+  <div class="top-actions">
+    <button id="undo" class="round" data-icon="undo" aria-label="Deshacer" title="Deshacer (Ctrl/⌘ Z)"></button>
+    <button id="redo" class="round" data-icon="redo" aria-label="Rehacer" title="Rehacer (Ctrl/⌘ Mayús Z)"></button>
+    <button id="compare" class="round" data-icon="compare" aria-label="Comparar antes y después" title="Comparar antes y después"></button>
+    <button id="snapshots" class="round" data-icon="history" aria-label="Historial y snapshots" title="Historial y snapshots"></button>
+  </div>
+  <div class="top-end"><button id="quick-export" class="badge" aria-label="Resolución y formato de exportación">HQ · PNG</button><button id="export" class="primary" data-icon="export">Exportar</button></div>
+</header>
+<main id="editor" hidden>
+  <section class="workspace" aria-label="Lienzo de edición">
+    <div class="workhead"><div class="document"><span data-icon="image"></span><div><strong id="filename">Lago de montaña.jpg</strong><small id="dimensions">Cargando fotografía</small></div></div><span id="view-status">Vista editada</span></div>
+    <div id="viewport" tabindex="0" aria-label="Imagen. Arrastra un archivo para abrirlo.">
+      <div id="photo"><canvas id="output" aria-label="Vista editada"></canvas><canvas id="original" aria-label="Vista original"></canvas><div id="guides"></div><div id="brush-outline" hidden></div><svg id="mesh-ui" viewBox="0 0 100 100" preserveAspectRatio="none" hidden aria-label="Malla de deformación"><path/><circle data-node="6" r="1.35"/><circle data-node="7" r="1.35"/><circle data-node="8" r="1.35"/><circle data-node="11" r="1.35"/><circle data-node="12" r="1.35"/><circle data-node="13" r="1.35"/><circle data-node="16" r="1.35"/><circle data-node="17" r="1.35"/><circle data-node="18" r="1.35"/></svg><div id="cropbox" hidden></div><div id="compare-line" hidden><div>‹ ›</div></div><div class="comparison-tags" hidden><span>ANTES</span><span>DESPUÉS</span></div></div>
+      <div id="drop-message" hidden>Suelta la imagen para abrirla</div>
+    </div>
+    <div class="canvas-tools">
+      <div class="zoom-tools glass"><button id="grid" data-icon="grid" title="Cambiar guías" aria-label="Cambiar guías"></button><button id="minus" aria-label="Alejar">−</button><button id="fit" aria-label="Ajustar al lienzo" title="Ajustar al lienzo"><output id="zoom">100%</output></button><button id="plus" aria-label="Acercar">+</button></div>
+      <button id="show-layers" data-icon="stack" aria-expanded="false" aria-controls="tool-panel">Capas</button>
+    </div>
+  </section>
+  <div class="editing">
+    <section id="tool-panel" class="inspector glass" aria-labelledby="section-title" hidden>
+      <div class="inspector-head">
+        <button id="cancel-tool" class="round" aria-label="Cancelar cambios" title="Cancelar cambios" data-icon="close"></button>
+        <div class="tool-heading"><h2 id="section-title"></h2><p id="section-subtitle"></p></div>
+        <div class="row"><button id="reset-tool" class="round" data-icon="reset" title="Restablecer herramienta" aria-label="Restablecer herramienta"></button><button id="apply-tool" class="primary round" aria-label="Aplicar cambios" title="Aplicar cambios" data-icon="check"></button></div>
+      </div>
+      <div id="inspector-body"></div>
+    </section>
+    <nav class="dock glass" aria-label="Herramientas de edición"><div id="categories"></div><button id="help" class="round" data-icon="help" aria-label="Ayuda y atajos" title="Ayuda y atajos"></button></nav>
+  </div>
+</main>
+<footer class="status"><span><i></i> Procesamiento local</span><span id="render-status">Canvas 2D</span><span id="message" role="status"></span></footer>
+<dialog id="dialog" aria-labelledby="dialog-title"><header><h2 id="dialog-title"></h2><button id="close-dialog" aria-label="Cerrar">×</button></header><div id="dialog-body"></div></dialog>
+<input id="image-input" type="file" accept="image/*" hidden>
+<script type="module" src="./app.mjs"></script>
+</body>
+</html>
